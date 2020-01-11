@@ -2,14 +2,14 @@
 from flask import Flask, render_template, request, flash, redirect
 from models import ContactBook
 import csv
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
 app.secret_key = 'secret'
 app.debug = True
 
-load_dotenv()
+# load_dotenv()
 
 @app.route(r'/', methods=['GET'])
 def contact_book():
