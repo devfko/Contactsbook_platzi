@@ -5,3 +5,4 @@ env/
 .gcloudignore
 appengine_config.py
 connection.py
+*.csv

@@ -1,21 +1,20 @@
 # -*- coding:utf-8 -*-
+import os
 from flask import Flask, render_template, request, flash, redirect
 from models import ContactBook
 import csv
-# from dotenv import load_dotenv
-import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 app.secret_key = 'secret'
 app.debug = True
 
-# load_dotenv()
+load_dotenv()
 
 @app.route(r'/', methods=['GET'])
 def contact_book():
     
     contact_book = ContactBook()
-
     try:
         with open('contacts.csv', 'r') as f:
             reader = csv.reader(f)
@@ -26,7 +25,7 @@ def contact_book():
     except:
         pass
 
-    return render_template('contact_book.html', contacts=contact_book._contacts)    
+    return render_template('contact_book.html', contacts=contact_book._contacts)
 
 @app.route(r'/add', methods=['GET','POST'])
 def add_contact():    
@@ -34,7 +33,6 @@ def add_contact():
     # Si el request trae un formulario, se imprimen los valores
     if request.form:
         contact_book = ContactBook()
-
         try:
             with open('contacts.csv', 'r') as f:
                 reader = csv.reader(f)
@@ -49,6 +47,16 @@ def add_contact():
         flash('Contact added successfully')
     
     return render_template('add_contact.html')
+
+@app.route(r'/view/<name>', methods=['GET'])
+def view_contact(name):
+    
+    contact_book = ContactBook()
+    return contact_book.getContact(name)
+    # contact_book = ContactBook()
+    # contact_book.getContact(name)
+
+    # return render_template('view_contact.html', contacts=contact_book._OneContact)
 
 @app.route(r'/delete/<email>', methods=['POST'])
 def delete_contact(email):

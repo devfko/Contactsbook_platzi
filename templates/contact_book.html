@@ -5,6 +5,12 @@
     <div>
         <p>Phone: {{ contact.phone }}</p>
         <p>Email: {{ contact.email }}</p>
+        <form action="/view/{{ contact.name }}" method="get">
+            <fieldset>
+                <legend>View contact</legend>
+                <button type="submit">View contact</button>
+            </fieldset>
+        </form>
         <form action="/delete/{{ contact.email }}" method="post">
             <fieldset>
                 <legend>Delete contact</legend>
